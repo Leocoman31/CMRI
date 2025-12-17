@@ -1,0 +1,28 @@
+``ttl @prefix : <http://example.org/fitness#&gt; .
+ @prefix owl: <http://www.w3.org/2002/07/owl#&gt; .
+  @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+ @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#&gt; .
+
+
+ # Класс человек
+:Person a owl:Class .
+
+# Подклассы активности
+:Active a owl:Class ; rdfs:subClassOf :Person .
+
+:Sedentary a owl:Class ; rdfs:subClassOf :Person .
+
+:ModeratelyActive a owl:Class ; rdfs:subClassOf :Person .
+
+# Свойство для количества шагов
+:hasStepCount a owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:integer .
+
+# Примеры экземпляров
+:John a :Person ; :hasStepCount 12000 .
+
+:Jane a :Person ; :hasStepCount 3000 .
+
+:Mike a :Person ; :hasStepCount 7000 .
+
+
+
