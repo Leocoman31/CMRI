@@ -1,0 +1,24 @@
+``ttl @prefix ex: <http://example.org/ontology#&gt; . 
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; . 
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#&gt; .
+
+
+ex:Person a rdfs:Class . ex:Book a rdfs:Class . ex:Library a rdfs:Class .
+
+ex:writes a rdf:Property ; rdfs:domain ex:Author ; rdfs:range ex:Book .
+
+ex:locatedIn a rdf:Property ; rdfs:domain ex:Library ; rdfs:range ex:City .
+
+
+ex:Author1 a ex:Person ; rdfs:label "Автор 1" .
+
+ex:Author2 a ex:Person ; rdfs:label "Автор 2" .
+
+ex:Book1 a ex:Book ; rdfs:label "Книга 1" ; ex:writes ex:Author1 .
+
+ex:Book2 a ex:Book ; rdfs:label "Книга 2" ; ex:writes ex:Author2 .
+
+ex:City1 a ex:Library ; rdfs:label "Библиотека 1" ; ex:locatedIn ex:City .
+
+ex:City2 a ex:Library ; rdfs:label "Библиотека 2" ; ex:locatedIn ex:City . `
+
