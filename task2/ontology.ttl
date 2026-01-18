@@ -1,10 +1,49 @@
-``ttl @prefix : <http://example.org/ontology#&gt; . 
-@prefix owl: <http://www.w3.org/2002/07/owl#&gt; .
- @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; . 
- @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix : <http://example.org/people#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
+############################
+# Онтология
+############################
 
-:Person a owl:Class .
-:hasParent a owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Person .
-:Alice a :Person . :Bob a :Person . :Charlie a :Person .
-:hasParent :Alice :Bob . :hasParent :Charlie :Alice . `
+<http://example.org/people> rdf:type owl:Ontology .
+
+############################
+# Класс
+############################
+
+:Человек rdf:type owl:Class .
+
+############################
+# Объектные свойства
+############################
+
+:ИмеетРодителя rdf:type owl:ObjectProperty ,
+                         owl:TransitiveProperty ;
+    rdfs:domain :Человек ;
+    rdfs:range :Человек ;
+    owl:irreflexiveProperty true .
+
+:ИмеетПотомка rdf:type owl:ObjectProperty ,
+                        owl:TransitiveProperty ;
+    rdfs:domain :Человек ;
+    rdfs:range :Человек ;
+    owl:inverseOf :ИмеетРодителя .
+
+############################
+# Экземпляры (люди)
+############################
+
+:Иван rdf:type :Человек .
+:Петр rdf:type :Человек .
+:Сергей rdf:type :Человек .
+:Алексей rdf:type :Человек .
+
+############################
+# Отношения "ИмеетРодителя"
+############################
+
+:Иван :ИмеетРодителя :Петр .
+:Петр :ИмеетРодителя :Сергей .
+:Сергей :ИмеетРодителя :Алексей .
