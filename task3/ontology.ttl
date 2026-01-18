@@ -1,28 +1,69 @@
-``ttl @prefix : <http://example.org/fitness#&gt; .
- @prefix owl: <http://www.w3.org/2002/07/owl#&gt; .
-  @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
- @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix : <http://kik.misis.ru/ontology/mpi/2024/ivanov-ivan/task3/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
+<http://kik.misis.ru/ontology/mpi/2024/ivanov-ivan/task3>
+    rdf:type owl:Ontology .
 
- # Класс человек
-:Person a owl:Class .
+#################################################################
+# Object Properties
+#################################################################
 
-# Подклассы активности
-:Active a owl:Class ; rdfs:subClassOf :Person .
+:обучается_на_программе rdf:type owl:ObjectProperty .
 
-:Sedentary a owl:Class ; rdfs:subClassOf :Person .
+:включает rdf:type owl:ObjectProperty ,
+                 owl:TransitiveProperty .
 
-:ModeratelyActive a owl:Class ; rdfs:subClassOf :Person .
+:имеет_автора rdf:type owl:ObjectProperty .
 
-# Свойство для количества шагов
-:hasStepCount a owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:integer .
+:обращается_к rdf:type owl:ObjectProperty .
 
-# Примеры экземпляров
-:John a :Person ; :hasStepCount 12000 .
+#################################################################
+# Classes
+#################################################################
 
-:Jane a :Person ; :hasStepCount 3000 .
+:Студент rdf:type owl:Class .
 
-:Mike a :Person ; :hasStepCount 7000 .
+:ОбразовательнаяПрограмма rdf:type owl:Class .
+
+:Предмет rdf:type owl:Class .
+
+:ЭлектронныйОбразовательныйРесурс rdf:type owl:Class .
+
+:Запрос rdf:type owl:Class .
+
+:ВалидныйЗапрос rdf:type owl:Class .
+
+#################################################################
+# Individuals
+#################################################################
+
+:Прикладная_информатика rdf:type owl:NamedIndividual ,
+                                 :ОбразовательнаяПрограмма .
+
+:Информатика rdf:type owl:NamedIndividual ,
+                      :Предмет .
+
+:Онтологии_в_ИИ rdf:type owl:NamedIndividual ,
+                        :ЭлектронныйОбразовательныйРесурс .
+
+:Иван_Петров rdf:type owl:NamedIndividual ,
+                      :Студент ;
+    :обучается_на_программе :Прикладная_информатика .
+
+:Запрос_1 rdf:type owl:NamedIndividual ,
+                   :Запрос ;
+    :имеет_автора :Иван_Петров ;
+    :обращается_к :Онтологии_в_ИИ .
+
+#################################################################
+# Relations between individuals
+#################################################################
+
+:Прикладная_информатика :включает :Информатика .
+:Информатика :включает :Онтологии_в_ИИ .
 
 
 
