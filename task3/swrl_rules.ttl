@@ -1,19 +1,39 @@
-### Этап 3: Логическое выражение в SWRL
-#### SWRL правило для классификации
+@prefix : <http://kik.misis.ru/ontology/mpi/2024/ivanov-ivan/task3/> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
-ttl @prefix swrl: <http://www.w3.org/2003/11/swrl#> .
- @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . 
- @prefix xsd: <http://www.w3.org/2001/XMLSchema#> . 
- 
- 
- # SWRL правило для классификации 
- :Rule1 a swrl:Imp ;
-  swrl:body ( [a swrl:ClassConstraint; swrl:class :Person; swrl:property :hasStepCount; swrl:value "10000"^^xsd:integer ] ); 
-  swrl:head ( [a swrl:ClassAtom; swrl:class :Active; ] ); :Rule2 a swrl:Imp ; 
-  swrl:body ( [a swrl:ClassConstraint; swrl:class :Person; 
-  swrl:property :hasStepCount; swrl:value "5000"^^xsd:integer ] );
-   swrl:head ( [a swrl:ClassAtom; swrl:class :Sedentary; ] ); :Rule3 a swrl:Imp ;
-    swrl:body ( [a swrl:ClassConstraint; swrl:class :Person;
-     swrl:property :hasStepCount; swrl:property2 :hasStepCount; 
-     swrl:value "5000"^^xsd:integer; swrl:value2 "10000"^^xsd:integer ] ); 
-     swrl:head ( [a swrl:ClassAtom; swrl:class :ModeratelyActive; ] ). 
+#################################################################
+# SWRL Rule: Valid request classification
+#################################################################
+
+:Rule_ValidRequest rdf:type swrl:Imp ;
+
+    swrl:body (
+        [ swrl:classPredicate :Запрос ;
+          swrl:argument1 ?x ]
+        [ swrl:propertyPredicate :имеет_автора ;
+          swrl:argument1 ?x ;
+          swrl:argument2 ?s ]
+        [ swrl:classPredicate :Студент ;
+          swrl:argument1 ?s ]
+        [ swrl:propertyPredicate :обучается_на_программе ;
+          swrl:argument1 ?s ;
+          swrl:argument2 ?p ]
+        [ swrl:classPredicate :ОбразовательнаяПрограмма ;
+          swrl:argument1 ?p ]
+        [ swrl:propertyPredicate :включает ;
+          swrl:argument1 ?p ;
+          swrl:argument2 ?r ]
+        [ swrl:classPredicate :ЭлектронныйОбразовательныйРесурс ;
+          swrl:argument1 ?r ]
+        [ swrl:propertyPredicate :обращается_к ;
+          swrl:argument1 ?x ;
+          swrl:argument2 ?r ]
+    ) ;
+
+    swrl:head (
+        [ swrl:classPredicate :ВалидныйЗапрос ;
+          swrl:argument1 ?x ]
+    ) .
